@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_BreakOut", "OpenGL_BreakOut\OpenGL_BreakOut.vcxproj", "{FF471F49-52C0-4EA6-95AD-3E9E2B61DA80}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_BreakOut", "BreakOut\OpenGL_BreakOut.vcxproj", "{FF471F49-52C0-4EA6-95AD-3E9E2B61DA80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
