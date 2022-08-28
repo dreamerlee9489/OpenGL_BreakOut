@@ -7,6 +7,7 @@ uniform vec3 textColor;
 
 void main()
 {    
+    // 灰度值与颜色向量相乘得到的最终颜色不会影响透明度
     vec4 sampled = vec4(1.0, 1.0, 1.0, texture(text, TexCoords).r);
     color = vec4(textColor, 1.0) * sampled;
 }  
