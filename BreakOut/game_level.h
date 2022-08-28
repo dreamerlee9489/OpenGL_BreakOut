@@ -14,24 +14,23 @@
 /// hosts functionality to Load/render levels from the harddisk.
 class GameLevel {
 public:
-	// level state
 	std::vector <GameObject> Bricks;
 
 	// constructor
 	GameLevel() {}
 
-	// loads level from file
+	// 从文件中加载关卡
 	void Load(const char* file, unsigned int levelWidth,
 		unsigned int levelHeight);
 
-	// render level
+	// 渲染关卡
 	void Draw(SpriteRenderer& renderer);
 
-	// check if the level is completed (all non-solid tiles are destroyed)
+	// 检查一个关卡是否已完成 (所有非坚硬的砖块均被摧毁)
 	bool IsCompleted();
 
 private:
-	// initialize level from tile data
+	// 由砖块数据初始化关卡
 	void init(std::vector <std::vector<unsigned int>> tileData,
 		unsigned int levelWidth, unsigned int levelHeight);
 };

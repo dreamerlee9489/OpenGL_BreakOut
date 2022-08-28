@@ -37,6 +37,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="game_level.cpp" />
     <ClCompile Include="game_object.cpp" />
+    <ClCompile Include="glad.c" />
     <ClCompile Include="particle_generator.cpp" />
     <ClCompile Include="post_processor.cpp" />
     <ClCompile Include="program.cpp" />

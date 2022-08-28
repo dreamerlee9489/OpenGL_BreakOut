@@ -5,7 +5,7 @@
 
 void GameLevel::Load(const char* file, unsigned int levelWidth,
 	unsigned int levelHeight) {
-	// clear old data
+	// 清空旧数据
 	this->Bricks.clear();
 	// load from file
 	unsigned int tileCode;
