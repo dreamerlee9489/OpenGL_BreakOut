@@ -14,13 +14,15 @@ void main()
     vec2 texture = vertex.zw;
     if(chaos)
     {
+        // 环形变换纹理坐标  
         float strength = 0.3;
-        vec2 pos = vec2(texture.x + sin(time) * strength, texture.y + cos(time) * strength);        
+        vec2 pos = vec2(texture.x + sin(time) * strength, texture.y + cos(time) * strength);      
         TexCoords = pos;
     }
     else if(confuse)
     {
-        TexCoords = vec2(1.0 - texture.x, 1.0 - texture.y);
+        // 反转纹理坐标
+        TexCoords = vec2(1.0 - texture.x, 1.0 - texture.y); 
     }
     else
     {
@@ -28,6 +30,7 @@ void main()
     }
     if (shake)
     {
+        // 移动顶点位置
         float strength = 0.01;
         gl_Position.x += cos(time * 10) * strength;        
         gl_Position.y += cos(time * 15) * strength;        

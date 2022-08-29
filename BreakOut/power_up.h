@@ -13,22 +13,29 @@ const glm::vec2 POWERUP_SIZE(60.0f, 20.0f);
 // Velocity a PowerUp block has when spawned
 const glm::vec2 VELOCITY(0.0f, 150.0f);
 
-// PowerUp inherits its state and rendering functions from
-// GameObject but also holds extra information to state its
-// active duration and whether it is activated or not.
-// The type of PowerUp is stored as a string.
+/// <summary>
+/// PowerUp从GameObject继承了它的状态和渲染功能
+/// 但也持有额外的信息来说明它的持续时间和它是否被激活
+/// </summary>
 class PowerUp : public GameObject {
 public:
-	// powerup state
-	std::string Type;
-	float Duration;
-	bool Activated;
+    // powerup state
+    std::string Type;
+    float Duration;
+    bool Activated;
 
-	// constructor
-	PowerUp(std::string type, glm::vec3 color, float duration, glm::vec2 position,
-		Texture2D texture)
-		: GameObject(position, POWERUP_SIZE, texture, color, VELOCITY),
-		Type(type), Duration(duration), Activated() {}
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="color"></param>
+    /// <param name="duration">持续时间，0表示无限长</param>
+    /// <param name="position"></param>
+    /// <param name="texture"></param>
+    PowerUp(std::string type, glm::vec3 color, float duration, glm::vec2 position,
+            Texture2D texture)
+            : GameObject(position, POWERUP_SIZE, texture, color, VELOCITY),
+              Type(type), Duration(duration), Activated() {}
 };
 
 #endif

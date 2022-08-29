@@ -11,14 +11,18 @@
 #include "power_up.h"
 
 // 代表了游戏的当前状态
-enum GameState { GAME_ACTIVE, GAME_MENU, GAME_WIN };
+enum GameState {
+    GAME_ACTIVE, GAME_MENU, GAME_WIN
+};
 
 // Represents the four possible (collision) directions
-enum Direction { UP, RIGHT, DOWN, LEFT };
+enum Direction {
+    UP, RIGHT, DOWN, LEFT
+};
 
 // 代表碰撞数据的元组
 typedef std::tuple<bool, Direction, glm::vec2>
-    Collision; // <是否碰撞, 碰撞反向, 球心和最近点的矢量差>
+        Collision; // <是否碰撞, 碰撞反向, 球心和最近点的矢量差>
 
 // 挡板大小
 const glm::vec2 PLAYER_SIZE(100.0f, 20.0f);
@@ -34,42 +38,50 @@ const float BALL_RADIUS = 12.5f;
 // easy access to each of the components and manageability.
 class Game {
 public:
-  // game state
-  GameState State;
-  bool Keys[1024];
-  bool KeysProcessed[1024];
-  unsigned int Width, Height;
-  std::vector<GameLevel> Levels;
-  std::vector<PowerUp> PowerUps;
-  unsigned int Level;
-  unsigned int Lives;
+    // game state
+    GameState State;
+    bool Keys[1024];
+    // 记录处理过的按键，下一帧不再处理（直到松开）
+    bool KeysProcessed[1024];
+    unsigned int Width, Height;
+    std::vector <GameLevel> Levels;
+    std::vector <PowerUp> PowerUps;
+    unsigned int Level;
+    unsigned int Lives;
 
-  //
-  Game(unsigned int width, unsigned int height);
+    //
+    Game(unsigned int width, unsigned int height);
 
-  ~Game();
+    ~Game();
 
-  // 初始化游戏状态（加载所有着色器/纹理/关卡）
-  void Init();
+    // 初始化游戏状态（加载所有着色器/纹理/关卡）
+    void Init();
 
-  // 游戏循环
-  void ProcessInput(float dt);
+    // 游戏循环
+    void ProcessInput(float dt);
 
-  void Update(float dt);
+    void Update(float dt);
 
-  void Render();
+    void Render();
 
-  void DoCollisions();
+    void DoCollisions();
 
-  // reset
-  void ResetLevel();
+    // reset
+    void ResetLevel();
 
-  void ResetPlayer();
+    void ResetPlayer();
 
-  // powerups
-  void SpawnPowerUps(GameObject &block);
+    /// <summary>
+    /// 以一定概率在给定砖块位置生成一个道具
+    /// </summary>
+    /// <param name="block"></param>
+    void SpawnPowerUps(GameObject &block);
 
-  void UpdatePowerUps(float dt);
+    /// <summary>
+    /// 管理所有当前被激活的道具
+    /// </summary>
+    /// <param name="dt"></param>
+    void UpdatePowerUps(float dt);
 };
 
 #endif
