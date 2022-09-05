@@ -3,8 +3,8 @@ layout (location = 0) in vec4 vertex; // <vec2 position, vec2 texCoords>
 
 out vec2 TexCoords;
 
+// 注意我们省略了视图矩阵； 视图永远不会改变，所以我们基本上有一个单位视图矩阵，因此可以省略它。
 uniform mat4 model;
-// note that we're omitting the view matrix; the view never changes so we basically have an identity view matrix and can therefore omit it.
 uniform mat4 projection;
 
 void main()

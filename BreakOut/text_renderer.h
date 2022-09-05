@@ -9,37 +9,37 @@
 #include "shader.h"
 #include "texture.h"
 
-/// Holds all state information relevant to a character as loaded using FreeType
+// 保存与使用 FreeType 加载的字符相关的所有状态信息
 struct Character {
-    unsigned int TextureID; // ID handle of the glyph texture
-    glm::ivec2 Size;        // size of glyph
-    glm::ivec2 Bearing;     // offset from baseline to left/top of glyph
-    unsigned int Advance;   // horizontal offset to advance to next glyph
+	unsigned int TextureID; // 字形纹理的 ID 句柄
+	glm::ivec2 Size;        // 字形大小
+	glm::ivec2 Bearing;     // 从基线到字形左侧/顶部的偏移量
+	unsigned int Advance;   // 水平偏移前进到下一个字形
 };
 
-// A renderer class for rendering text displayed by a font loaded using the
-// FreeType library. A single font is loaded, processed into a list of Character
-// items for later rendering.
+/// <summary>
+/// 一个渲染器类，用于渲染由使用 FreeType 库加载的字体显示的文本。 
+/// 加载单个字体，处理成字符项列表以供以后渲染。
+/// </summary>
 class TextRenderer {
 public:
-    // holds a list of pre-compiled Characters
-    std::map<char, Character> Characters;
-    // shader used for text rendering
-    Shader TextShader;
+	// 保存预编译字符列表
+	std::map<char, Character> Characters;
+	// 用于文本渲染的着色器
+	Shader TextShader;
 
-    // constructor
-    TextRenderer(unsigned int width, unsigned int height);
+	TextRenderer(unsigned int width, unsigned int height);
 
-    // pre-compiles a list of characters from the given font
-    void Load(std::string font, unsigned int fontSize);
+	// 预编译给定字体的字符列表
+	void Load(std::string font, unsigned int fontSize);
 
-    // renders a string of text using the precompiled list of characters
-    void RenderText(std::string text, float x, float y, float scale,
-                    glm::vec3 color = glm::vec3(1.0f));
+	// 使用预编译的字符列表呈现文本字符串
+	void RenderText(std::string text, float x, float y, float scale,
+		glm::vec3 color = glm::vec3(1.0f));
 
 private:
-    // render state
-    unsigned int VAO, VBO;
+	// 渲染状态
+	unsigned int VAO, VBO;
 };
 
 #endif

@@ -8,45 +8,39 @@
 #include "sprite_renderer.h"
 #include "texture.h"
 
-// PostProcessor hosts all PostProcessing effects for the Breakout
-// Game. It renders the game on a textured quad after which one can
-// enable specific effects by enabling either the Confuse, Chaos or
-// Shake boolean.
-// It is required to call BeginRender() before rendering the game
-// and EndRender() after rendering the game for the class to work.
+/// <summary>
+/// PostProcessor 托管 Breakout Game 的所有 PostProcessing 效果。 
+/// 它在带纹理的四边形上渲染游戏，之后可以通过启用 Confuse、Chaos 或 Shake 布尔值来启用特定效果。
+/// 需要在渲染游戏之前调用 BeginRender() 并在渲染游戏之后调用 EndRender() 才能使类工作。
+/// </summary>
 class PostProcessor {
 public:
-    // state
-    Shader PostProcessingShader;
-    Texture2D Texture;
-    unsigned int Width, Height;
-    // options
-    bool Confuse, Chaos, Shake;
+	// 状态
+	Shader PostProcessingShader;
+	Texture2D Texture;
+	unsigned int Width, Height;
+	// 选项
+	bool Confuse, Chaos, Shake;
 
-    // constructor
-    PostProcessor(Shader shader, unsigned int width, unsigned int height);
+	PostProcessor(Shader shader, unsigned int width, unsigned int height);
 
-    // prepares the postprocessor's framebuffer operations before rendering the
-    // game
-    void BeginRender();
+	// 在渲染游戏之前准备后处理器的帧缓冲操作
+	void BeginRender();
 
-    // should be called after rendering the game, so it stores all the rendered
-    // data into a texture object
-    void EndRender();
+	// 应该在渲染游戏后调用，因此它将所有渲染数据存储到纹理对象中
+	void EndRender();
 
-    // renders the PostProcessor texture quad (as a screen-encompassing large
-    // sprite)
-    void Render(float time);
+	// 渲染 PostProcessor 纹理四边形（作为一个包含屏幕的大精灵）
+	void Render(float time);
 
 private:
-    // render state
-    unsigned int MSFBO, FBO; // MSFBO = Multisampled FBO. FBO is regular, used for
-    // blitting MS color-buffer to texture
-    unsigned int RBO; // RBO is used for multisampled color buffer
-    unsigned int VAO;
+	// 渲染状态
+	unsigned int MSFBO, FBO; // MSFBO = 多重采样 FBO。 FBO 是常规的，用于将 MS 颜色缓冲区传输到纹理
+	unsigned int RBO; // RBO 用于多采样颜色缓冲区
+	unsigned int VAO;
 
-    // initialize quad for rendering postprocessing texture
-    void initRenderData();
+	// 初始化四边形以渲染后处理纹理
+	void initRenderData();
 };
 
 #endif

@@ -6,34 +6,32 @@ PostProcessor::PostProcessor(Shader shader, unsigned int width,
 	unsigned int height)
 	: PostProcessingShader(shader), Texture(), Width(width), Height(height),
 	Confuse(false), Chaos(false), Shake(false) {
-	// initialize renderbuffer/framebuffer object
+	// 初始化渲染缓冲区/帧缓冲区对象
 	glGenFramebuffers(1, &this->MSFBO);
 	glGenFramebuffers(1, &this->FBO);
 	glGenRenderbuffers(1, &this->RBO);
-	// initialize renderbuffer storage with a multisampled color buffer (don't
-	// need a depth/stencil buffer)
+	// 使用多采样颜色缓冲区初始化渲染缓冲区存储（不需要深度/模板缓冲区）
 	glBindFramebuffer(GL_FRAMEBUFFER, this->MSFBO);
 	glBindRenderbuffer(GL_RENDERBUFFER, this->RBO);
 	glRenderbufferStorageMultisample(
 		GL_RENDERBUFFER, 4, GL_RGB, width,
-		height); // allocate storage for render buffer object
+		height); // 为渲染缓冲区对象分配存储空间
 	glFramebufferRenderbuffer(
 		GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER,
-		this->RBO); // attach MS render buffer object to framebuffer
+		this->RBO); // 将 MS 渲染缓冲区对象附加到帧缓冲区
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		std::cout << "ERROR::POSTPROCESSOR: Failed to initialize MSFBO"
 		<< std::endl;
-	// also initialize the FBO/texture to blit multisampled color-buffer to; used
-	// for shader operations (for postprocessing effects)
+	// 还将 FBO/纹理初始化为 blit multisampled color-buffer to; 用于着色器操作（用于后处理效果）
 	glBindFramebuffer(GL_FRAMEBUFFER, this->FBO);
 	this->Texture.Generate(width, height, NULL);
 	glFramebufferTexture2D(
 		GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->Texture.ID,
-		0); // attach texture to framebuffer as its color attachment
+		0); // 将纹理附加到帧缓冲区作为其颜色附件
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		std::cout << "ERROR::POSTPROCESSOR: Failed to initialize FBO" << std::endl;
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	// initialize render data and uniforms
+	// 初始化渲染数据和制服
 	this->initRenderData();
 	this->PostProcessingShader.SetInteger("scene", 0, true);
 	float offset = 1.0f / 300.0f;
@@ -69,25 +67,24 @@ void PostProcessor::BeginRender() {
 }
 
 void PostProcessor::EndRender() {
-	// now resolve multisampled color-buffer into intermediate FBO to store to
-	// texture
+	// 现在将多采样颜色缓冲区解析为中间 FBO 以存储到纹理
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, this->MSFBO);
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, this->FBO);
 	glBlitFramebuffer(0, 0, this->Width, this->Height, 0, 0, this->Width,
 		this->Height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 	glBindFramebuffer(
 		GL_FRAMEBUFFER,
-		0); // binds both READ and WRITE framebuffer to default framebuffer
+		0); // 将 READ 和 WRITE 帧缓冲区绑定到默认帧缓冲区
 }
 
 void PostProcessor::Render(float time) {
-	// set uniforms/options
+	// 设置 uniforms/options
 	this->PostProcessingShader.Use();
 	this->PostProcessingShader.SetFloat("time", time);
 	this->PostProcessingShader.SetInteger("confuse", this->Confuse);
 	this->PostProcessingShader.SetInteger("chaos", this->Chaos);
 	this->PostProcessingShader.SetInteger("shake", this->Shake);
-	// render textured quad
+	// 渲染纹理四边形
 	glActiveTexture(GL_TEXTURE0);
 	this->Texture.Bind();
 	glBindVertexArray(this->VAO);
@@ -96,7 +93,7 @@ void PostProcessor::Render(float time) {
 }
 
 void PostProcessor::initRenderData() {
-	// configure VAO/VBO
+	// 配置 VAO/VBO
 	unsigned int VBO;
 	float vertices[] = {
 		// 本地坐标    // 纹理坐标

@@ -7,29 +7,28 @@
 #include "sprite_renderer.h"
 #include "texture.h"
 
-// Container object for holding all state relevant for a single
-// game object entity. Each object in the game likely needs the
-// minimal of state as described within GameObject.
+/// <summary>
+/// 用于保存与单个游戏对象实体相关的所有状态的容器对象。 
+/// 游戏中的每个对象都可能需要 GameObject 中描述的最小状态。
+/// </summary>
 class GameObject {
 public:
-    // object state
-    glm::vec2 Position, Size, Velocity;
-    glm::vec3 Color;
-    float Rotation;
-    bool IsSolid;
-    bool Destroyed;
-    // render state
-    Texture2D Sprite;
+	// 物体状态
+	glm::vec2 Position, Size, Velocity;
+	glm::vec3 Color;
+	float Rotation;
+	bool IsSolid;
+	bool Destroyed;
+	// 渲染状态
+	Texture2D Sprite;
 
-    // constructor(s)
-    GameObject();
+	GameObject();
+	GameObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite,
+		glm::vec3 color = glm::vec3(1.0f),
+		glm::vec2 velocity = glm::vec2(0.0f, 0.0f));
 
-    GameObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite,
-               glm::vec3 color = glm::vec3(1.0f),
-               glm::vec2 velocity = glm::vec2(0.0f, 0.0f));
-
-    // draw sprite
-    virtual void Draw(SpriteRenderer &renderer);
+	// 绘制精灵
+	virtual void Draw(SpriteRenderer& renderer);
 };
 
 #endif

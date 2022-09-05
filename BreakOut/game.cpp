@@ -274,21 +274,20 @@ void Game::ResetLevel() {
 }
 
 void Game::ResetPlayer() {
-	// reset player/ball stats
+	// 重置玩家/球的统计数据
 	Player->Size = PLAYER_SIZE;
 	Player->Position = glm::vec2(this->Width / 2.0f - PLAYER_SIZE.x / 2.0f,
 		this->Height - PLAYER_SIZE.y);
 	Ball->Reset(Player->Position + glm::vec2(PLAYER_SIZE.x / 2.0f - BALL_RADIUS,
 		-(BALL_RADIUS * 2.0f)),
 		INITIAL_BALL_VELOCITY);
-	// also disable all active powerups
+	// 还禁用所有活动的道具
 	Effects->Chaos = Effects->Confuse = false;
 	Ball->PassThrough = Ball->Sticky = false;
 	Player->Color = glm::vec3(1.0f);
 	Ball->Color = glm::vec3(1.0f);
 }
 
-// powerups
 bool IsOtherPowerUpActive(std::vector <PowerUp>& powerUps, std::string type);
 
 void Game::UpdatePowerUps(float dt) {
@@ -413,8 +412,7 @@ void ActivatePowerUp(PowerUp& powerUp) {
 /// <param name="type"></param>
 /// <returns></returns>
 bool IsOtherPowerUpActive(std::vector <PowerUp>& powerUps, std::string type) {
-	// Check if another PowerUp of the same type is still active
-	// in which case we don't disable its effect (yet)
+	// 检查另一个相同类型的 PowerUp 是否仍然处于活动状态，在这种情况下我们不会禁用它的效果（还）
 	for (const PowerUp& powerUp : powerUps) {
 		if (powerUp.Activated)
 			if (powerUp.Type == type)
@@ -423,7 +421,7 @@ bool IsOtherPowerUpActive(std::vector <PowerUp>& powerUps, std::string type) {
 	return false;
 }
 
-// collision detection
+// 碰撞检测
 bool CheckCollision(GameObject& one, GameObject& two);
 
 Collision CheckCollision(BallObject& one, GameObject& two);
@@ -481,8 +479,7 @@ void Game::DoCollisions() {
 	// 检查道具的碰撞情况，如果有，就激活它们
 	for (PowerUp& powerUp : this->PowerUps) {
 		if (!powerUp.Destroyed) {
-			// first check if powerup passed bottom edge, if so: keep as inactive and
-			// destroy
+			// 首先检查上电是否通过底部边缘，如果是：保持非活动状态并销毁
 			if (powerUp.Position.y >= this->Height)
 				powerUp.Destroyed = true;
 

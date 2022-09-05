@@ -14,7 +14,7 @@ SpriteRenderer::~SpriteRenderer() { glDeleteVertexArrays(1, &this->quadVAO); }
 
 void SpriteRenderer::DrawSprite(Texture2D& texture, glm::vec2 position,
 	glm::vec2 size, float rotate, glm::vec3 color) {
-	// prepare transformations
+	// 准备转换
 	this->shader.Use();
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(
@@ -35,7 +35,7 @@ void SpriteRenderer::DrawSprite(Texture2D& texture, glm::vec2 position,
 
 	this->shader.SetMatrix4("model", model);
 
-	// render textured quad
+	// 渲染纹理四边形
 	this->shader.SetVector3f("spriteColor", color);
 
 	glActiveTexture(GL_TEXTURE0); // 激活纹理单元0

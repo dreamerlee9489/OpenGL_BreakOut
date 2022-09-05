@@ -8,9 +8,9 @@
 
 #include "game_object.h"
 
-// The size of a PowerUp block
+// PowerUp 块的大小
 const glm::vec2 POWERUP_SIZE(60.0f, 20.0f);
-// Velocity a PowerUp block has when spawned
+// PowerUp 方块在生成时的速度
 const glm::vec2 VELOCITY(0.0f, 150.0f);
 
 /// <summary>
@@ -19,23 +19,23 @@ const glm::vec2 VELOCITY(0.0f, 150.0f);
 /// </summary>
 class PowerUp : public GameObject {
 public:
-    // powerup state
-    std::string Type;
-    float Duration;
-    bool Activated;
+	// powerup state
+	std::string Type;
+	float Duration;
+	bool Activated;
 
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="type"></param>
-    /// <param name="color"></param>
-    /// <param name="duration">持续时间，0表示无限长</param>
-    /// <param name="position"></param>
-    /// <param name="texture"></param>
-    PowerUp(std::string type, glm::vec3 color, float duration, glm::vec2 position,
-            Texture2D texture)
-            : GameObject(position, POWERUP_SIZE, texture, color, VELOCITY),
-              Type(type), Duration(duration), Activated() {}
+	/// <summary>
+	/// 构造函数
+	/// </summary>
+	/// <param name="type"></param>
+	/// <param name="color"></param>
+	/// <param name="duration">持续时间，0表示无限长</param>
+	/// <param name="position"></param>
+	/// <param name="texture"></param>
+	PowerUp(std::string type, glm::vec3 color, float duration, glm::vec2 position,
+		Texture2D texture)
+		: GameObject(position, POWERUP_SIZE, texture, color, VELOCITY),
+		Type(type), Duration(duration), Activated() {}
 };
 
 #endif

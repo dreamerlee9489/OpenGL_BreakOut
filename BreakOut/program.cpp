@@ -6,15 +6,15 @@
 
 #include <iostream>
 
-// GLFW function declarations
+// GLFW 函数声明
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action,
 	int mode);
 
-// The Width of the screen
+// 屏幕宽度
 const unsigned int SCREEN_WIDTH = 1024;
-// The height of the screen
+// 屏幕高度
 const unsigned int SCREEN_HEIGHT = 768;
 
 Game Breakout(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -33,8 +33,7 @@ int main(int argc, char* argv[]) {
 		nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 
-	// glad: load all OpenGL function pointers
-	// ---------------------------------------
+	// glad: 加载所有 OpenGL 函数指针
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
@@ -43,39 +42,32 @@ int main(int argc, char* argv[]) {
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-	// OpenGL configuration
-	// --------------------
+	// OpenGL 配置
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	// initialize game
-	// ---------------
+	// 初始化游戏
 	Breakout.Init();
 
-	// deltaTime variables
-	// -------------------
+	// deltaTime 变量
 	float deltaTime = 0.0f;
 	float lastFrame = 0.0f;
 
 	while (!glfwWindowShouldClose(window)) {
-		// calculate delta time
-		// --------------------
+		// 计算 deltaTime
 		float currentFrame = (float)glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 		glfwPollEvents();
 
-		// manage user input
-		// -----------------
+		// 管理用户输入
 		Breakout.ProcessInput(deltaTime);
 
-		// update game state
-		// -----------------
+		// 更新游戏状态
 		Breakout.Update(deltaTime);
 
-		// render
-		// ------
+		// 渲染
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		Breakout.Render();
@@ -83,8 +75,7 @@ int main(int argc, char* argv[]) {
 		glfwSwapBuffers(window);
 	}
 
-	// delete all resources as loaded using the resource manager
-	// ---------------------------------------------------------
+	// 删除使用资源管理器加载的所有资源
 	ResourceManager::Clear();
 
 	glfwTerminate();
@@ -93,8 +84,7 @@ int main(int argc, char* argv[]) {
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action,
 	int mode) {
-	// when a user presses the escape key, we set the WindowShouldClose property
-	// to true, closing the application
+	// 当用户按下退出键时，我们将 WindowShouldClose 属性设置为 true，关闭应用程序
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 	if (key >= 0 && key < 1024) {
@@ -108,7 +98,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action,
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-	// make sure the viewport matches the new window dimensions; note that width
-	// and height will be significantly larger than specified on retina displays.
+	// 确保视口与新窗口尺寸匹配； 请注意，宽度和高度将明显大于视网膜显示器上指定的值。
 	glViewport(0, 0, width, height);
 }
